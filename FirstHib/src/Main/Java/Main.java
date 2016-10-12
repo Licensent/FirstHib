@@ -1,13 +1,28 @@
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.util.List;
-
 /**
  * Created by DarthVader on 08.10.2016.
  */
 public class Main {
     public static void main(String[] args) {
-        User user = getUserByName("Drist");
+        UserDaoImpl userDao = new UserDaoImpl();
+        User user1 = new User();
+        User user2 = new User();
+        user1.setPerson("Spider-man");
+        user2.setPerson("Iron man");
+        userDao.addUsers(user1);
+        userDao.addUsers(user2);
+        userDao.updateUser("Spider-man", "Batman", 56);
+        /*List<User> all = userDao.getAll();
+        User user = all.get(0);
+        user.setAge(999);
+        userDao.addUsers(user);*/
+//        userDao.deleteUser(user1);
+//        userDao.deleteUser();
+
+        HibernateUtil.close();
+    }
+}
+
+/*User user = getUserByName("Drist");
         UserDao userDao = new UserDaoImpl();
         if (user != null) {
             user.setPerson("Batman");
@@ -42,5 +57,4 @@ public class Main {
             return null;
         }
         return resultList.get(0);
-    }
-}
+    }*/

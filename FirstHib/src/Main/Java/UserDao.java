@@ -3,5 +3,5 @@
  */
 public interface UserDao {
     public void addUsers(User user);
-    public void updateUser(User user);
+    public void updateUser(String foundName, String changeName, Integer age);
     }

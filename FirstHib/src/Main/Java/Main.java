@@ -11,12 +11,11 @@ public class Main {
         userDao.addUsers(user1);
         userDao.addUsers(user2);
         userDao.updateUser("Spider-man", "Batman", 56);
-        /*List<User> all = userDao.getAll();
-        User user = all.get(0);
-        user.setAge(999);
-        userDao.addUsers(user);*/
-//        userDao.deleteUser(user1);
-//        userDao.deleteUser();
+        user1.setPerson("Hulk");
+        userDao.deleteUser(user1);
+//        userDao.updateUser(user1);
+        System.out.println(userDao.getUserById(1L));
+
 
         HibernateUtil.close();
     }

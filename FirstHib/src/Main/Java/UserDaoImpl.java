@@ -1,7 +1,5 @@
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
 
 /**
@@ -77,11 +75,21 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-
-    public List<User> getAll() {
-        EntityManager em = HibernateUtil.getEm();
-        TypedQuery<User> query = em.createQuery("from User", User.class);
-        return query.getResultList();
+    public User getUserById(long id) {
+        User user = null;
+        try {
+            manager = HibernateUtil.getEm();
+            manager.getTransaction().begin();
+            user = manager.find(User.class, id);
+            manager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (manager != null && manager.isOpen()) {
+                manager.close();
+            }
+        }
+        return user;
     }
 
 }

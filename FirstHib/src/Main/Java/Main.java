@@ -1,59 +1,25 @@
+import Hibernate.HibernateUtil;
+import Dao.UserDaoImpl;
+import Entities.UserPO;
+
 /**
  * Created by DarthVader on 08.10.2016.
  */
 public class Main {
     public static void main(String[] args) {
         UserDaoImpl userDao = new UserDaoImpl();
-        User user1 = new User();
-        User user2 = new User();
-        user1.setPerson("Spider-man");
-        user2.setPerson("Iron man");
-        userDao.addUsers(user1);
-        userDao.addUsers(user2);
-        userDao.updateUser("Spider-man", "Batman", 56);
-        user1.setPerson("Hulk");
-        userDao.deleteUser(user1);
-//        userDao.updateUser(user1);
-        System.out.println(userDao.getUserById(1L));
+        UserPO userPO1 = new UserPO();
+        UserPO userPO2 = new UserPO();
+        userPO1.setPerson("Spider-man");
+        userPO2.setPerson("Iron man");
+        userDao.add(userPO1);
+        userDao.add(userPO2);
+//        userDao.updateUser("Spider-man", "Batman", 56);
+//        userPO1.setPerson("Hulk");
+        userDao.delete(userPO1);
+//        userDao.updateUser(userPO1);
 
 
         HibernateUtil.close();
     }
 }
-
-/*User user = getUserByName("Drist");
-        UserDao userDao = new UserDaoImpl();
-        if (user != null) {
-            user.setPerson("Batman");
-            userDao.updateUser(user);
-        } else {
-            user = new User();
-            user.setPerson("Drist");
-            userDao.addUsers(user);
-        }
-        HibernateUtil.close();
-    }
-
-    private static User getUser(long id) {
-        EntityManager em = HibernateUtil.getEm();
-        TypedQuery<User> query = em.createQuery("from User where id = :id", User.class);
-        query.setParameter("id",id);
-        return executeQueryGetFirst(query);
-    }
-
-
-    private static User getUserByName(String name) {
-        EntityManager em = HibernateUtil.getEm();
-        TypedQuery<User> query = em.createQuery("from User where person = :person", User.class);
-        query.setParameter("person",name);
-        return executeQueryGetFirst(query);
-    }
-
-
-    private static User executeQueryGetFirst(TypedQuery<User> query) {
-        List<User> resultList = query.getResultList();
-        if (resultList.isEmpty()) {
-            return null;
-        }
-        return resultList.get(0);
-    }*/

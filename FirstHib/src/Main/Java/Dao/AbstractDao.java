@@ -1,18 +1,31 @@
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+package Dao;
 
+import Entities.BaseEntity;
+import Hibernate.HibernateUtil;
+
+import javax.persistence.EntityManager;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
- * Created by DarthVader on 05.10.2016.
+ * Created by DarthVader on 18.10.2016.
  */
-public class UserDaoImpl implements UserDao {
+public class AbstractDao<T extends BaseEntity> implements Dao<T> {
     EntityManager manager = null;
 
-    public void addUsers(User user) {
+    private Class<T> tClass;
+
+    public AbstractDao() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        tClass = (Class) pt.getActualTypeArguments()[0];
+    }
+
+    public void add(T type) {
         try {
             manager = HibernateUtil.getEm();
             manager.getTransaction().begin();
-            manager.persist(user);
+            manager.persist(type);
             manager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -23,16 +36,12 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public void updateUser(String foundName, String changeName, Integer age) {
+
+    public void update(T type) {
         try {
             manager = HibernateUtil.getEm();
             manager.getTransaction().begin();
-            Query query = manager.createQuery("update User set person = :personParam," +
-                    " age = :ageParam where person = :personCode");
-            query.setParameter("personCode", foundName);
-            query.setParameter("personParam", changeName);
-            query.setParameter("ageParam", age);
-            query.executeUpdate();
+            manager.merge(type);
             manager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,26 +52,11 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public void updateUser(User user) {
+    public void delete(T type) {
         try {
             manager = HibernateUtil.getEm();
             manager.getTransaction().begin();
-            manager.merge(user);
-            manager.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (manager != null && manager.isOpen()) {
-                manager.close();
-            }
-        }
-    }
-
-    public void deleteUser(User user) {
-        try {
-            manager = HibernateUtil.getEm();
-            manager.getTransaction().begin();
-            User userX = manager.getReference(User.class, user.getId());
+            BaseEntity userX = manager.getReference(type.getClass(), type.getId());
             manager.remove(userX);
             manager.getTransaction().commit();
         } catch (Exception e) {
@@ -72,15 +66,13 @@ public class UserDaoImpl implements UserDao {
                 manager.close();
             }
         }
-
     }
-
-    public User getUserById(long id) {
-        User user = null;
+    public T getObjectById(T type) {
+        T typeClass = null;
         try {
             manager = HibernateUtil.getEm();
             manager.getTransaction().begin();
-            user = manager.find(User.class, id);
+            typeClass = manager.find(tClass, type.getId());
             manager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,7 +81,8 @@ public class UserDaoImpl implements UserDao {
                 manager.close();
             }
         }
-        return user;
+        return typeClass;
+
     }
 
 }

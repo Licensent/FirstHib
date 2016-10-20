@@ -1,4 +1,8 @@
-import javax.persistence.*;
+package Entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -6,23 +10,15 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
-    public User() {}
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(name ="PERSON")
+public class UserPO extends BaseEntity implements Serializable {
+    @Column(name = "PERSON")
     private String person;
     @Column(name = "AGE")
     private int age;
 
-    public long getId() {
-        return id;
+    public UserPO() {
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getPerson() {
         return person;
@@ -40,9 +36,9 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public String toString(){
-        return "Id = " + id +"\n" +
-                "Person = " + person +"\n" +
+    public String toString() {
+        return "Id = " + getId() + "\n" +
+                "Person = " + person + "\n" +
                 "Age = " + age;
 
     }

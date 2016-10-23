@@ -31,7 +31,4 @@ public class  UserDaoImpl extends AbstractDao<UserPO> {
         }
     }
 
-    public UserPO getObjectById(UserPO type) {
-        return null;
-    }
 }

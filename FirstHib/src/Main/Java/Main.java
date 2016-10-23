@@ -1,3 +1,5 @@
+import Dao.EventDaoImpl;
+import Entities.EventPO;
 import Hibernate.HibernateUtil;
 import Dao.UserDaoImpl;
 import Entities.UserPO;
@@ -18,6 +20,10 @@ public class Main {
 //        userPO1.setPerson("Hulk");
         userDao.delete(userPO1);
 //        userDao.updateUser(userPO1);
+        EventDaoImpl eventDao = new EventDaoImpl();
+        EventPO eventPO1 = new EventPO();
+        eventPO1.setDiscriptionEvent("The Empire strikes back");
+        eventDao.add(eventPO1);
 
 
         HibernateUtil.close();

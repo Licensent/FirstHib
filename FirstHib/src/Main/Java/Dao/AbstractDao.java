@@ -13,6 +13,8 @@ import java.lang.reflect.Type;
 public class AbstractDao<T extends BaseEntity> implements Dao<T> {
     EntityManager manager = null;
 
+
+
     private Class<T> tClass;
 
     public AbstractDao() {

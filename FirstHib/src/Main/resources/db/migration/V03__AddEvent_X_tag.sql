@@ -1,0 +1,6 @@
+CREATE TABLE Event_X_Tag (
+  Event_ID bigint(20) NOT NULL,
+  Tag_ID bigint(20) NOT NULL
+);
+ALTER TABLE Event_X_Tag  ADD CONSTRAINT fk_Event_ID FOREIGN KEY (Event_ID) REFERENCES event(id);
+ALTER TABLE Event_X_Tag  ADD CONSTRAINT fk_Tag_ID FOREIGN KEY (Tag_ID) REFERENCES Tag(id);

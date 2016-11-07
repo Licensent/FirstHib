@@ -124,12 +124,12 @@
       <view id="43" parent="1" name="INNODB_LOCKS">
         <is-system>1</is-system>
       </view>
-      <table id="44" parent="2" name="hibernate_sequence"/>
-      <table id="45" parent="2" name="user"/>
-      <table id="46" parent="2" name="event"/>
-      <table id="47" parent="2" name="data_version"/>
+      <table id="44" parent="2" name="data_version"/>
+      <table id="45" parent="2" name="event"/>
+      <table id="46" parent="2" name="event_x_tag"/>
+      <table id="47" parent="2" name="hibernate_sequence"/>
       <table id="48" parent="2" name="tag"/>
-      <table id="49" parent="2" name="event_x_tag"/>
+      <table id="49" parent="2" name="user"/>
       <table id="50" parent="3" name="columns_priv"/>
       <table id="51" parent="3" name="db"/>
       <table id="52" parent="3" name="event"/>
@@ -1897,80 +1897,86 @@
       <column id="502" parent="43" name="lock_data">
         <data-type>varchar(8192)</data-type>
       </column>
-      <column id="503" parent="44" name="next_val">
-        <data-type>bigint(20)</data-type>
-      </column>
-      <column id="504" parent="45" name="id">
-        <mandatory>1</mandatory>
-        <data-type>bigint(20)</data-type>
-      </column>
-      <column id="505" parent="45" name="AGE">
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="506" parent="45" name="PERSON">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <key id="507" parent="45" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="508" parent="46" name="id">
-        <mandatory>1</mandatory>
-        <data-type>bigint(20)</data-type>
-      </column>
-      <column id="509" parent="46" name="date">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="510" parent="46" name="discriptionEvent">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <key id="511" parent="46" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="512" parent="47" name="installed_rank">
+      <column id="503" parent="44" name="installed_rank">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="513" parent="47" name="version">
+      <column id="504" parent="44" name="version">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="514" parent="47" name="description">
+      <column id="505" parent="44" name="description">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="515" parent="47" name="type">
+      <column id="506" parent="44" name="type">
         <mandatory>1</mandatory>
         <data-type>varchar(20)</data-type>
       </column>
-      <column id="516" parent="47" name="script">
+      <column id="507" parent="44" name="script">
         <mandatory>1</mandatory>
         <data-type>varchar(1000)</data-type>
       </column>
-      <column id="517" parent="47" name="checksum">
+      <column id="508" parent="44" name="checksum">
         <data-type>int(11)</data-type>
       </column>
-      <column id="518" parent="47" name="installed_by">
+      <column id="509" parent="44" name="installed_by">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="519" parent="47" name="installed_on">
+      <column id="510" parent="44" name="installed_on">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <column id="520" parent="47" name="execution_time">
+      <column id="511" parent="44" name="execution_time">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="521" parent="47" name="success">
+      <column id="512" parent="44" name="success">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <key id="522" parent="47" name="PRIMARY">
+      <key id="513" parent="44" name="PRIMARY">
         <columns>installed_rank</columns>
         <primary>1</primary>
       </key>
+      <column id="514" parent="45" name="id">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="515" parent="45" name="date">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="516" parent="45" name="discriptionEvent">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="517" parent="45" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="518" parent="46" name="Event_ID">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="519" parent="46" name="Tag_ID">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+      </column>
+      <foreign-key id="520" parent="46" name="FK7ipi0637i8y7p76lq1gcuqy1n">
+        <columns>Event_ID</columns>
+        <ref-key>tag.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="521" parent="46" name="FKlexb9jufx2wb839cwtgfpthfb">
+        <columns>Tag_ID</columns>
+        <ref-key>event.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="522" parent="47" name="next_val">
+        <data-type>bigint(20)</data-type>
+      </column>
       <column id="523" parent="48" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20)</data-type>
@@ -1982,26 +1988,20 @@
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="526" parent="49" name="Event_ID">
+      <column id="526" parent="49" name="id">
         <mandatory>1</mandatory>
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="527" parent="49" name="Tag_ID">
-        <mandatory>1</mandatory>
-        <data-type>bigint(20)</data-type>
+      <column id="527" parent="49" name="AGE">
+        <data-type>int(11)</data-type>
       </column>
-      <foreign-key id="528" parent="49" name="FK7ipi0637i8y7p76lq1gcuqy1n">
-        <columns>Event_ID</columns>
-        <ref-key>tag.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="529" parent="49" name="FKlexb9jufx2wb839cwtgfpthfb">
-        <columns>Tag_ID</columns>
-        <ref-key>event.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
+      <column id="528" parent="49" name="PERSON">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="529" parent="49" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
       <column id="530" parent="50" name="Host">
         <mandatory>1</mandatory>
         <data-type>char(60)</data-type>

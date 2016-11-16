@@ -55,12 +55,30 @@ public class Main {
         System.out.println(eventDao.getObjectById(eventPO3).getTagPOList());
 //         userService.createEventAndConnectTags(eventPO4, tagPOList);
 //        System.out.println(eventDao.getObjectById(eventPO4).getTagPOList());
-        List<EventPO> eventPOList = new ArrayList<>(Arrays.asList(eventPO5, eventPO5, eventPO3));
+        List<EventPO> eventPOList = new ArrayList<>(Arrays.asList(eventPO5, eventPO5,
+                eventDao.getObjectById(eventPO2)));
         userPO1.setEventPOList(eventPOList);
         userDao.update(userPO1);
-        System.out.println(userDao.getObjectById(userPO1).getEventPOList());
+        System.out.println("!" + userDao.getObjectById(userPO1).getEventPOList());
 
 
+        UserPO userPOa = userDao.getObjectById(userPO1);
+        userPOa.setEventPOList(eventPOList);
+        userDao.update(userPOa);
+        System.out.println("!!" + userDao.getObjectById(userPOa).getEventPOList());
+
+
+//        eventPO3.setUserPO(userPO1);
+//        eventDao.update(eventPO3);
+//        System.out.println("!!!"+eventDao.getObjectById(eventPO1).getUserPO());
+
+//        данный код работает и в бд заносит update, но возвращает почему-то null, неизвестно почему
+
+
+        EventPO eventPOa = eventDao.getObjectById(eventPO3);
+        eventPOa.setUserPO(userDao.getObjectById(userPO1));
+        eventDao.update(eventPOa);
+        System.out.println(eventDao.getObjectById(eventPOa).getUserPO());
 
         HibernateUtil.close();
     }

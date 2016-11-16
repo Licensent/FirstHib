@@ -12,6 +12,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private EventDaoImpl eventDao;
 
+    public UserServiceImpl(EventDaoImpl eventDao) {
+        this.eventDao = eventDao;
+    }
+
     public void connectEventTags(EventPO eventPO, List<TagPO> tagPOList) {
         eventPO.setTagPOList(tagPOList);
         eventDao.update(eventPO);
@@ -22,9 +26,5 @@ public class UserServiceImpl implements UserService {
         eventPO.setTagPOList(tagPOList);
         eventDao.add(eventPO);
 
-    }
-
-    public UserServiceImpl(EventDaoImpl eventDao) {
-        this.eventDao = eventDao;
     }
 }

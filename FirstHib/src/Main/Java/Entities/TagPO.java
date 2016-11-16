@@ -12,11 +12,7 @@ import java.util.List;
 public class TagPO extends BaseEntity implements Serializable {
     @Column(name = "tagName")
     private String tagName;
-    @ManyToMany
-    @JoinTable(
-            name = "Event_x_Tag",
-            joinColumns = @JoinColumn(name = "Event_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "Tag_ID", referencedColumnName = "ID"))
+    @ManyToMany(mappedBy = "tagPOList")
     private List<EventPO> eventPOList;
 
     public String getTagName() {

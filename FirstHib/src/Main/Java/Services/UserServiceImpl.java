@@ -10,11 +10,11 @@ import java.util.List;
  * Created by DarthVader on 06.11.2016.
  */
 public class UserServiceImpl implements UserService {
-    EventDaoImpl eventDao = new EventDaoImpl();
+    private EventDaoImpl eventDao;
+
     public void connectEventTags(EventPO eventPO, List<TagPO> tagPOList) {
-        EventPO event = eventDao.getObjectById(eventPO);
-        event.setTagPOList(tagPOList);
-        eventDao.update(event);
+        eventPO.setTagPOList(tagPOList);
+        eventDao.update(eventPO);
 
     }
 
@@ -22,5 +22,9 @@ public class UserServiceImpl implements UserService {
         eventPO.setTagPOList(tagPOList);
         eventDao.add(eventPO);
 
+    }
+
+    public UserServiceImpl(EventDaoImpl eventDao) {
+        this.eventDao = eventDao;
     }
 }

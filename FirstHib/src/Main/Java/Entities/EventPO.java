@@ -1,9 +1,6 @@
 package Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +15,18 @@ public class EventPO extends BaseEntity implements Serializable {
     private String discriptionEvent;
     @Column
     private String date;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "User_ID")
+    private UserPO userPO;
+
+
+    public UserPO getUserPO() {
+        return userPO;
+    }
+
+    public void setUserPO(UserPO userPO) {
+        this.userPO = userPO;
+    }
 
     public List<TagPO> getTagPOList() {
         return tagPOList;
@@ -27,7 +36,12 @@ public class EventPO extends BaseEntity implements Serializable {
         this.tagPOList = tagPOList;
     }
 
-    @ManyToMany(mappedBy = "eventPOList")
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "event_x_tag",
+            joinColumns = @JoinColumn(name = "Event_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "Tag_ID", referencedColumnName = "ID"))
     private List<TagPO> tagPOList;
 
     public String getDiscriptionEvent() {

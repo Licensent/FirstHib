@@ -16,7 +16,7 @@ public class EventPO extends BaseEntity implements Serializable {
     @Column
     private String date;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "User_ID")
+    @JoinColumn(name = "User_ID", nullable = false)
     private UserPO userPO;
 
 
@@ -58,6 +58,10 @@ public class EventPO extends BaseEntity implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String toString(){
+        return "Event: "+discriptionEvent+". Date: "+date;
     }
 
 }

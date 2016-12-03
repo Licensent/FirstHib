@@ -13,7 +13,6 @@ import java.lang.reflect.Type;
 public class AbstractDao<T extends BaseEntity> implements Dao<T> {
     EntityManager manager = HibernateUtil.getEm();
 
-
     private Class<T> tClass;
 
     public AbstractDao() {
@@ -54,11 +53,11 @@ public class AbstractDao<T extends BaseEntity> implements Dao<T> {
         }
     }
 
-    public T getObjectById(T type) {
+    public T getObjectById(Long id) {
         T typeClass = null;
         try {
             manager.getTransaction().begin();
-            typeClass = manager.find(tClass, type.getId());
+            typeClass = manager.find(tClass, id);
             manager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

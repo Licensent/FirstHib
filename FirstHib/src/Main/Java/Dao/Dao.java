@@ -7,5 +7,5 @@ public interface Dao<T> {
     void add(T type);
     void delete(T type);
     void update(T type);
-    T getObjectById (T type);
+    T getObjectById (Long id);
 }

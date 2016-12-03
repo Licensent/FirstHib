@@ -49,36 +49,26 @@ public class Main {
         tagDao.add(tag1);
         tagDao.add(tag2);
         UserServiceImpl userService = new UserServiceImpl(eventDao);
-        List<TagPO> tagPOList = new ArrayList<>(Arrays.asList(tagDao.getObjectById(tag1),
-                tagDao.getObjectById(tag2)));
+        List<TagPO> tagPOList = new ArrayList<>(Arrays.asList(tagDao.getObjectById(6L),
+                tagDao.getObjectById(7L)));
         userService.connectEventTags(eventPO3, tagPOList);
-        System.out.println(eventDao.getObjectById(eventPO3).getTagPOList());
+//        System.out.println(eventDao.getObjectById(eventPO3).getTagPOList());
 //         userService.createEventAndConnectTags(eventPO4, tagPOList);
 //        System.out.println(eventDao.getObjectById(eventPO4).getTagPOList());
         List<EventPO> eventPOList = new ArrayList<>(Arrays.asList(eventPO5, eventPO5,
-                eventDao.getObjectById(eventPO2)));
-        userPO1.setEventPOList(eventPOList);
-        userDao.update(userPO1);
-        System.out.println("!" + userDao.getObjectById(userPO1).getEventPOList());
+                eventDao.getObjectById(11L)));
 
 
-        UserPO userPOa = userDao.getObjectById(userPO1);
-        userPOa.setEventPOList(eventPOList);
-        userDao.update(userPOa);
-        System.out.println("!!" + userDao.getObjectById(userPOa).getEventPOList());
+        eventPO3.setUserPO(userPO1);
+        eventDao.update(eventPO3);
 
 
-//        eventPO3.setUserPO(userPO1);
-//        eventDao.update(eventPO3);
-//        System.out.println("!!!"+eventDao.getObjectById(eventPO1).getUserPO());
+        eventPO1.setUserPO(userPO2);
+        eventDao.update(eventPO1);
 
-//        данный код работает и в бд заносит update, но возвращает почему-то null, неизвестно почему
+        eventPO2.setUserPO(userPO2);
+        eventDao.update(eventPO2);
 
-
-        EventPO eventPOa = eventDao.getObjectById(eventPO3);
-        eventPOa.setUserPO(userDao.getObjectById(userPO1));
-        eventDao.update(eventPOa);
-        System.out.println(eventDao.getObjectById(eventPOa).getUserPO());
 
         HibernateUtil.close();
     }

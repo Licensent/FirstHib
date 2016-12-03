@@ -1907,6 +1907,7 @@
         <data-type>varchar(255)</data-type>
       </column>
       <column id="505" parent="44" name="User_ID">
+        <mandatory>1</mandatory>
         <data-type>bigint(20)</data-type>
       </column>
       <key id="506" parent="44" name="PRIMARY">

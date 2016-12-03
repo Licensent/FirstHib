@@ -31,4 +31,16 @@ public class  UserDaoImpl extends AbstractDao<UserPO> {
         }
     }
 
+    public UserPO getUserById(Long id) {
+        UserPO userPO = null;
+        try {
+            manager.getTransaction().begin();
+            userPO = manager.find(UserPO.class, id);
+            manager.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userPO;
+
+    }
 }
